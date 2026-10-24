@@ -84,7 +84,7 @@ Yes, by default. `--policy` decides:
   through only endpoints you know only read: `--allow-post api.example.com/graphql` (repeatable). Its host must be the
   `--url`'s or one you add with `--allow-domain`, so here also pass `--allow-domain api.example.com`.
 
-Use `mutating` on a test or staging copy of your app, never on data you care about.
+Use `mutating` on a test copy of your app, never on data you care about.
 
 ## An app behind a login
 
