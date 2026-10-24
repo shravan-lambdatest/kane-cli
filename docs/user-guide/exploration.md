@@ -35,7 +35,7 @@ machine (except for a tunnel, [below](#an-app-on-localhost-or-a-private-network)
 
 ```bash
 kane-cli explore run --project <project-id> \
-  --url https://staging.example.com \
+  --url https://app.example.com \
   --prompt "Explore sign-up, the dashboard and the settings pages" \
   --policy read_only \
   --max-leases 40
@@ -109,7 +109,7 @@ kane-cli explore run --project <project-id> --url https://app.example.com \
   that's where it signs in (`--allow-domain app.example.com`). Use a project of its own: one project explores one URL.
 - You can also keep the values in `.testmuai/variables/*.json` (see [Variables & context](./variables-and-context.md)).
   Only the names your `--prompt` and `--deps` use are sent. Names are letters, digits and `_` (`login_email`, not
-  `login-email`); `LT_USERNAME` and `LT_ACCESS_KEY` are taken.
+  `login-email`); `LT_USERNAME` and `LT_ACCESS_KEY` are reserved.
 - **Secrets** (`"secret": true`) go to your **HyperExecute Secrets**. Other values go to your organisation's Test
   Manager variables, and **replace any variable of the same name there**, so pick names your team can share. A value
   never travels in the request itself. kane-cli also keeps your LambdaTest username and access key in HyperExecute
@@ -274,7 +274,6 @@ turn the context off and on again (`explore context off <id>`, then `on`).
 
 ### Get the tests into a folder and run them
 
-<!-- release: needs context pull -->
 The tests are in the project as soon as a design job saves them (`explore context status <id>` says so). To run them
 on your machine, bring them into a folder:
 

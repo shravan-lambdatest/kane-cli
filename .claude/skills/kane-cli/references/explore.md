@@ -67,7 +67,7 @@ Add these to `explore run` only when the person's request needs them:
 
 | The person wants | Pass |
 |---|---|
-| An app behind a login | `--deps "Logged in as {{user}} / {{pass}}"`, with the values in a variables file (`.testmuai/variables/*.json`, or `--variables-file <path>`; a secret has `"secret": true`). `--deps` always needs `--allow-domain`: the app's own host, and every other host it signs in on (`--allow-domain app.example.com --allow-domain login.example.com`). Only the names the prompt and `--deps` use travel: secrets go to the person's HyperExecute Secrets, the rest to the organisation's Test Manager variables, where they replace a variable of the same name (tell the person). Names are letters, digits and `_`; `LT_USERNAME` and `LT_ACCESS_KEY` are taken. Check the values are real first: an empty secret stops the run `failed:secrets_missing`, and a sign-in that fails stops it `failed:setup_failed` |
+| An app behind a login | `--deps "Logged in as {{user}} / {{pass}}"`, with the values in a variables file (`.testmuai/variables/*.json`, or `--variables-file <path>`; a secret has `"secret": true`). `--deps` always needs `--allow-domain`: the app's own host, and every other host it signs in on (`--allow-domain app.example.com --allow-domain login.example.com`). Only the names the prompt and `--deps` use travel: secrets go to the person's HyperExecute Secrets, the rest to the organisation's Test Manager variables, where they replace a variable of the same name (tell the person before the run). Names are letters, digits and `_`; `LT_USERNAME` and `LT_ACCESS_KEY` are reserved. Check the values are real first: an empty secret stops the run `failed:secrets_missing`, and a sign-in that fails stops it `failed:setup_failed` |
 | Only some sites | `--allow-domain <host>`, repeatable (the URL's host is always in, subdomains included) |
 | A control it must never press | `--deny "<control name>"`, repeatable, under either policy |
 | A `read_only` run of an app that reads its data through POST | `--allow-post <host/path>`, repeatable, only for an endpoint the person confirms only reads; its host must be the URL's or one passed with `--allow-domain` |
@@ -139,8 +139,8 @@ so run it again). Say it to the person in plain words.
   (`RUN_NOT_ACTIVE`, exit 1).
 - **Run it again:** `kane-cli explore run --project <id> … --agent` once more. It goes on the same exploration, on its
   URL, and adds to its map; a different `--url` is refused (exit 2). A run keeps only the URL: pass every option again
-  (`--policy read_only` above all, since the default is `mutating`, and the prompt, `--deps`, domains, variables,
-  limits and tunnel).
+  (above all `--policy read_only` if the person chose it, since the default is `mutating`; then the prompt, `--deps`,
+  domains, variables, limits and tunnel).
 - **Explore another site:** use another project, so its tests don't mix with this site's. Or, only on the person's
   word, `kane-cli explore delete <exploration-id> --yes --agent` (refused with `RUN_ACTIVE`, exit 1, while a run is
   queued or running): no command shows that map again and the project can start a new exploration of any URL, but the
